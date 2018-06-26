@@ -321,7 +321,7 @@ TcpSocket.prototype._onData = function(data: string): void {
     // will prevent this from being called again until _read() gets
     // called again.
 
-    var ret = this.push(new Buffer(data, 'base64'));
+    var ret = this.push(Buffer.from(data, 'base64').toString());
     if (this._reading && !ret) {
       this._reading = false;
       this.pause();
@@ -367,7 +367,7 @@ TcpSocket.prototype._write = function(buffer: any, encoding: ?String, callback: 
   if (typeof buffer === 'string') {
     self._debug('socket.WRITE(): encoding as base64');
     str = Base64Str.encode(buffer);
-  } else if (Buffer.isBuffer(buffer)) {
+  } else if (Buffer.isBuffer(Buffer.from(buffer))) {
     str = buffer.toString('base64');
   } else {
     throw new TypeError(
