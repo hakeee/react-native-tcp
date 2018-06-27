@@ -321,7 +321,7 @@ TcpSocket.prototype._onData = function(data: string): void {
     // will prevent this from being called again until _read() gets
     // called again.
 
-    var ret = this.push(Buffer.from(data, 'base64').toString());
+    var ret = this.push(Buffer.from(data, 'base64'));
     if (this._reading && !ret) {
       this._reading = false;
       this.pause();
